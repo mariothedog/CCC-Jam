@@ -7,7 +7,7 @@
 [ext_resource path="res://Player/Player.tscn" type="PackedScene" id=5]
 [ext_resource path="res://Tiles/Tile Set.tres" type="TileSet" id=6]
 [ext_resource path="res://Font/pixeljosh6.ttf" type="DynamicFontData" id=7]
-[ext_resource path="res://Enemies/Enemy.tscn" type="PackedScene" id=8]
+[ext_resource path="res://Enemies/Enemy2.tscn" type="PackedScene" id=9]
 
 [sub_resource type="DynamicFont" id=1]
 size = 32
@@ -45,11 +45,9 @@ format = 1
 
 [node name="Player" parent="." instance=ExtResource( 5 )]
 light_mask = 3
+position = Vector2( 440, 8 )
 
 [node name="Enemies" type="Node2D" parent="."]
 
-[node name="Enemy" parent="Enemies" instance=ExtResource( 8 )]
-position = Vector2( 455.962, 18.3721 )
-
-[node name="Enemy2" parent="Enemies" instance=ExtResource( 8 )]
-position = Vector2( -471.056, 19.8795 )
+[node name="Enemy3" parent="Enemies" instance=ExtResource( 9 )]
+position = Vector2( 0, -304 )
