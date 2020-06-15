@@ -60,8 +60,10 @@ func get_input():
 
 func movement(delta):
 	if not is_on_floor() if global.gravity.real_value > 0 else true:
-		velocity.y += global.gravity.real_value * delta
-	
+		if global.gravity.real_value > 0:
+			velocity.y += global.gravity.real_value * delta
+		elif global.gravity.real_value < 0:
+			velocity.y -= global.gravity.real_value * delta
 	# Friction
 	if global.player_max_speed.real_value != 0:
 		var normalized_speed = range_lerp(velocity.x, 0, global.player_max_speed.real_value, 0, 1)
