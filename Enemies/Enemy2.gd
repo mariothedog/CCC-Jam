@@ -1,10 +1,10 @@
 extends KinematicBody2D
 
-onready var anim_sprite = get_node("AnimatedSprite")
-onready var raycast = get_node("RayCast2D")
-onready var right_raycast = get_node("Right Raycast")
-onready var left_raycast = get_node("Left Raycast")
-onready var up_raycast = get_node("Up Raycast")
+onready var anim_sprite = get_node("Animator/AnimatedSprite")
+onready var raycast = get_node("Animator/RayCast2D")
+onready var right_raycast = get_node("Animator/Right Raycast")
+onready var left_raycast = get_node("Animator/Left Raycast")
+onready var up_raycast = get_node("Animator/Up Raycast")
 
 
 var velocity = Vector2()  
@@ -50,10 +50,10 @@ func animate():
 		anim_sprite.frames.set_animation_loop("Walk", false)
 
 func die():
-	$"Death SFX".play()
+	$"Animator/Death SFX".play()
 	visible = false
 	dead = true
-	yield($"Death SFX", "finished")
+	yield($"Animator/Death SFX", "finished")
 	queue_free()
 
 func _on_Die_Zone_body_entered(body):
@@ -66,5 +66,12 @@ func _on_Kill_Zone_body_entered(body):
 		body.hurt(1)
 
 
-func _on_ViewPort_body_shape_entered(body_id, body, body_shape, area_shape):
-	velocity.x = global.enemy_max_speed.real_value * body.position.x
+
+func _on_ViewPortLeft_body_shape_entered(body_id, body, body_shape, area_shape):
+	if body.name == "Player":
+		$AnimationPlayer.play("Left")
+
+
+func _on_ViewPortRight_body_shape_entered(body_id, body, body_shape, area_shape):
+	if body.name == "Player":
+		$AnimationPlayer.play("Right")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=2]
+[gd_scene load_steps=24 format=2]
 
 [ext_resource path="res://Enemies/Enemy2.gd" type="Script" id=1]
 [ext_resource path="res://Enemies/Enemy.png" type="Texture" id=2]
@@ -60,9 +60,6 @@ animations = [ {
 "speed": 18.0
 } ]
 
-[sub_resource type="RectangleShape2D" id=14]
-extents = Vector2( 20, 30 )
-
 [sub_resource type="RectangleShape2D" id=15]
 extents = Vector2( 31, 18 )
 
@@ -75,74 +72,120 @@ extents = Vector2( 104, 8 )
 [sub_resource type="RectangleShape2D" id=18]
 extents = Vector2( 104, 8 )
 
+[sub_resource type="Animation" id=20]
+resource_name = "Left"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( -64, 0 ), Vector2( -128, 0 ), Vector2( -192, 0 ), Vector2( -256, 0 ), Vector2( -320, 0 ), Vector2( -384, 0 ) ]
+}
+
+[sub_resource type="Animation" id=19]
+resource_name = "Left"
+length = 1.2
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.2, 0.4, 0.6, 0.8, 1, 1.2 ),
+"transitions": PoolRealArray( 1, 1, 1, 1, 1, 1, 1 ),
+"update": 0,
+"values": [ Vector2( 0, 0 ), Vector2( 64, 0 ), Vector2( 128, 0 ), Vector2( 192, 0 ), Vector2( 256, 0 ), Vector2( 320, 0 ), Vector2( 384, 0 ) ]
+}
+
+[sub_resource type="RectangleShape2D" id=14]
+extents = Vector2( 20, 30 )
+
 [node name="Enemy2" type="KinematicBody2D"]
 collision_layer = 4
 collision_mask = 3
 script = ExtResource( 1 )
 
-[node name="AnimatedSprite" type="AnimatedSprite" parent="."]
+[node name="Animator" type="Node2D" parent="."]
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="Animator"]
 scale = Vector2( 3, 3 )
 frames = SubResource( 13 )
 animation = "Walk"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2( 0, 2 )
-shape = SubResource( 14 )
-
-[node name="Die Zone" type="Area2D" parent="."]
+[node name="Die Zone" type="Area2D" parent="Animator"]
 collision_layer = 4
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Die Zone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Animator/Die Zone"]
 position = Vector2( 2, -16 )
 shape = SubResource( 15 )
 
-[node name="Kill Zone" type="Area2D" parent="."]
+[node name="Kill Zone" type="Area2D" parent="Animator"]
 collision_layer = 4
 collision_mask = 2
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Kill Zone"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Animator/Kill Zone"]
 position = Vector2( 1.5, -5 )
 shape = SubResource( 16 )
 
-[node name="RayCast2D" type="RayCast2D" parent="."]
+[node name="RayCast2D" type="RayCast2D" parent="Animator"]
 position = Vector2( 32, 0 )
 enabled = true
 cast_to = Vector2( 0, 35 )
 
-[node name="Back RayCast" type="RayCast2D" parent="."]
+[node name="Back RayCast" type="RayCast2D" parent="Animator"]
 position = Vector2( -24, 0 )
 enabled = true
 cast_to = Vector2( 0, 35 )
 
-[node name="Right Raycast" type="RayCast2D" parent="."]
+[node name="Right Raycast" type="RayCast2D" parent="Animator"]
 enabled = true
 cast_to = Vector2( 40, 0 )
 collide_with_areas = true
 
-[node name="Left Raycast" type="RayCast2D" parent="."]
+[node name="Left Raycast" type="RayCast2D" parent="Animator"]
 enabled = true
 cast_to = Vector2( -40, 0 )
 collide_with_areas = true
 
-[node name="Up Raycast" type="RayCast2D" parent="."]
+[node name="Up Raycast" type="RayCast2D" parent="Animator"]
 enabled = true
 cast_to = Vector2( 0, -40 )
 collide_with_areas = true
 
-[node name="Death SFX" type="AudioStreamPlayer2D" parent="."]
+[node name="Death SFX" type="AudioStreamPlayer2D" parent="Animator"]
 stream = ExtResource( 3 )
 volume_db = -10.0
 
-[node name="ViewPort" type="Area2D" parent="."]
+[node name="ViewPortLeft" type="Area2D" parent="Animator"]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ViewPort"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Animator/ViewPortLeft"]
 position = Vector2( -152, 0 )
 shape = SubResource( 17 )
 
-[node name="CollisionShape2D2" type="CollisionShape2D" parent="ViewPort"]
+[node name="ViewPortRight" type="Area2D" parent="Animator"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Animator/ViewPortRight"]
 position = Vector2( 152, 0 )
 shape = SubResource( 18 )
-[connection signal="body_entered" from="Die Zone" to="." method="_on_Die_Zone_body_entered"]
-[connection signal="body_entered" from="Kill Zone" to="." method="_on_Kill_Zone_body_entered"]
-[connection signal="body_shape_entered" from="ViewPort" to="." method="_on_ViewPort_body_shape_entered"]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Animator"]
+anims/Left = SubResource( 20 )
+anims/Right = SubResource( 19 )
+
+[node name="Col" type="KinematicBody2D" parent="Animator"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Animator/Col"]
+position = Vector2( 0, 2 )
+shape = SubResource( 14 )
+[connection signal="body_entered" from="Animator/Die Zone" to="." method="_on_Die_Zone_body_entered"]
+[connection signal="body_entered" from="Animator/Kill Zone" to="." method="_on_Kill_Zone_body_entered"]
+[connection signal="body_shape_entered" from="Animator/ViewPortLeft" to="." method="_on_ViewPortLeft_body_shape_entered"]
+[connection signal="body_shape_entered" from="Animator/ViewPortRight" to="." method="_on_ViewPortRight_body_shape_entered"]
