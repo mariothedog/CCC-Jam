@@ -1,8 +1,10 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://UI/MainMenu/MainMenu.gd" type="Script" id=1]
 [ext_resource path="res://Font/pixeljosh6.ttf" type="DynamicFontData" id=2]
 [ext_resource path="res://Sky/Sky.tscn" type="PackedScene" id=3]
+[ext_resource path="res://Sprites/Mutes/Musics/NMute.png" type="Texture" id=4]
+[ext_resource path="res://Sprites/Mutes/Musics/YMute.png" type="Texture" id=5]
 
 [sub_resource type="DynamicFont" id=1]
 size = 128
@@ -36,6 +38,8 @@ custom_constants/margin_top = 160
 custom_constants/margin_left = 20
 custom_constants/margin_bottom = 20
 __meta__ = {
+"_edit_group_": true,
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -96,5 +100,30 @@ custom_colors/font_color_pressed = Color( 0.392157, 0.392157, 0.392157, 1 )
 enabled_focus_mode = 0
 text = "Sandbox"
 flat = true
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="."]
+margin_left = 150.0
+margin_top = 500.0
+margin_right = 938.0
+margin_bottom = 564.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MusicMuteButton" type="TextureButton" parent="HBoxContainer2"]
+margin_right = 64.0
+margin_bottom = 64.0
+texture_normal = ExtResource( 4 )
+texture_hover = ExtResource( 5 )
+
+[node name="SoundMuteButton" type="TextureButton" parent="HBoxContainer2"]
+margin_left = 68.0
+margin_right = 132.0
+margin_bottom = 64.0
+texture_normal = ExtResource( 4 )
+texture_hover = ExtResource( 5 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
 [connection signal="pressed" from="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Button" to="." method="_on_Button_pressed"]
 [connection signal="pressed" from="MarginContainer/VBoxContainer/CenterContainer/HBoxContainer/Button2" to="." method="_on_Button2_pressed"]
