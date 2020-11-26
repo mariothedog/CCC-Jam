@@ -7,6 +7,7 @@ var success_text = "The \"%s\" command has been used successfully."
 var invalid_syntax_text = "Please use the correct syntax."
 var not_recognised_command_text = "\'%s\' is not recognised as an internal or external command.  Please see the \'help\' command."
 var not_recognised_variable_text = "\'%s\' is not recognised as an internal or external variable. Please see the \'variables\' command."
+var command
 
 func _on_Console_command_entered(command):
 	$"Enter SFX".play()
@@ -20,8 +21,7 @@ func parse_command(text):
 	
 	# Lower case to ensure that even if the player adds an extra capital somewhere that it will still work fine.
 	var command_str = separated_command[0].to_lower()
-	var command = global.command.get_command(command_str)
-	
+	command = global.command.get_command(command_str)
 	# If the command doesn't exist.
 	if not command:
 		console.output_error(not_recognised_command_text % command_str)
